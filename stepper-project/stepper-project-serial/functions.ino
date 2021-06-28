@@ -1,85 +1,4 @@
 
-// Functions.
-
-void on() {
-
-  digitalWrite(led1, HIGH);
-  digitalWrite(led2, HIGH);
-  digitalWrite(led3, HIGH);
-  digitalWrite(led0, HIGH);
-}
-
-void off() {
-
-  digitalWrite(led1, LOW);
-  digitalWrite(led2, LOW);
-  digitalWrite(led3, LOW);
-  digitalWrite(led0, LOW);
-
-
-}
-
-void onoff(int t) {
-
-  Serial.println("LED 1");
-  for (int x = 0; x < light; x++) {
-    analogWrite(led1, x);
-    delay(t);
-  }
-
-  for (int x = light; x > 0; x--) {
-    analogWrite(led1, x);
-    delay(t);
-  }
-
-  digitalWrite(led1, LOW);
-
-  Serial.println("LED 2");
-
-  for (int x = 0; x < light; x++) {
-    analogWrite(led2, x);
-    delay(t);
-  }
-
-
-  for (int x = light; x > 0; x--) {
-    analogWrite(led2, x);
-    delay(t);
-  }
-
-  digitalWrite(led2, LOW);
-
-  Serial.println("LED 3");
-
-  for (int x = 0; x < light; x++) {
-    analogWrite(led3, x);
-    delay(t);
-  }
-
-  for (int x = light; x > 0; x--) {
-    analogWrite(led3, x);
-    delay(t);
-  }
-
-  digitalWrite(led3, LOW);
-
-  Serial.println("LED 4");
-
-
-  for (int x = 0; x < light; x++) {
-    analogWrite(led0, x);
-    delay(t);
-  }
-
-
-  for (int x = light; x > 0; x--) {
-    analogWrite(led0, x);
-    delay(t);
-  }
-  digitalWrite(led0, LOW);
-
-}
-
 // Mixed Motors Management
 
 void motorMixSwitch(int ledState0, int ledState1) {
@@ -121,19 +40,7 @@ void motorMixSwitch(int ledState0, int ledState1) {
 
 }
 
-
-
-
-
-// X Motor Management
-
-void motorXStop() {
-  digitalWrite(StepX, LOW);
-}
-
-void motorYStop() {
-  digitalWrite(StepY, LOW);
-}
+// read sensor and debounce 
 
 
 void readSwitch() {
@@ -208,62 +115,68 @@ void readSwitch() {
   // save the reading. Next time through the loop, it'll be the lastButtonState:
   lastButtonState1 = switchValue02;
 
+}
 
+// X Motor Stop
+
+void motorXStop() {
+  digitalWrite(StepX, LOW);
+}
+
+void motorYStop() {
+  digitalWrite(StepY, LOW);
+}
+
+void motorYLeft() {
+
+  digitalWrite(DirY, LOW);
+
+  for (int x = 0; x < dur; x++) { // loop for 200 steps
+    digitalWrite(StepY, HIGH);
+    delayMicroseconds(temp);
+    digitalWrite(StepY, LOW);
+    delayMicroseconds(temp);
+  }
+
+}
+
+void motorYRight() {
+  digitalWrite(DirY, HIGH); // set direction, HIGH for clockwise, LOW for anticlockwise
+
+  for (int x = 0; x < dur; x++) { // loop for 200 steps
+    digitalWrite(StepY, HIGH);
+    delayMicroseconds(temp);
+    digitalWrite(StepY, LOW);
+    delayMicroseconds(temp);
+  }
 
 }
 
 
-/*
-  if (Serial.available() > 0) {
-    // read the oldest byte in the serial buffer:
-    incomingByte = Serial.read();
-    // if it's a capital H (ASCII 72), turn on the LED:
-    if (incomingByte == 'q') {
-      //    motorYLeft();
-      motorXLeft();
+void motorXLeft() {
 
-    }
-    // if it's an L (ASCII 76) turn off the LED:
-    if (incomingByte == 'w') {
-      //  motorYRight();
-      motorXRight();
+  digitalWrite(DirX, LOW);
 
-      //  delay(dur); // delay for 1 second
-    }
-    if (incomingByte == 'e') {
-      //  motorYStop();
-      motorYStop();
-    }
+  for (int x = 0; x < dur; x++) { // loop for 200 steps
+    digitalWrite(StepX, HIGH);
+    delayMicroseconds(temp);
+    digitalWrite(StepX, LOW);
 
-    if (incomingByte == 'r') {
-      //  motorYStop();
-      motorYSwicth(ledState1);
-    }
-
-
-    if (incomingByte == 'O') {
-      on();
-    }
-
-    if (incomingByte == 'I') {
-
-      onoff(15);
-
-    }
-
-    if (incomingByte == 'U') {
-
-      off();
-
-    }
-
-    if (incomingByte == 'T') {
-
-      on();
-
-    }
-
-
-
+    delayMicroseconds(temp);
   }
-  */
+
+}
+
+void motorXRight() {
+  digitalWrite(DirX, HIGH); // set direction, HIGH for clockwise, LOW for anticlockwise
+
+  for (int x = 0; x < dur; x++) { // loop for 200 steps
+    digitalWrite(StepX, HIGH);
+    delayMicroseconds(temp);
+    digitalWrite(StepX, LOW);
+
+    delayMicroseconds(temp);
+  }
+
+
+}

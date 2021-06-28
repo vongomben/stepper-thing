@@ -128,7 +128,7 @@ void loop() {
   // PORT 0
 
   while (sensorValue0 < step2  ) {
-    Serial.print(" SPOT 0 ");
+    Serial.print(" STOP ");
 
 
     // read and update the switch's behaviour
@@ -158,7 +158,7 @@ void loop() {
 
 
   while (sensorValue0 >= step2) {
-    Serial.print(" MOV 0");
+    Serial.print(" MOVE");
     readSwitch();
 
     sensorValue0 = analogRead(analogInPin0);

@@ -112,80 +112,78 @@ void setup() {
 void loop() {
   // these two pots are used to change things dynamically, but are to be taken away in the future
 
-  sensorValue0 = analogRead(analogInPin0);
-  sensorValue1 = analogRead(analogInPin1);
-
-  /*
-    Serial.print(" POT 0 --> ");
-    Serial.print(sensorValue0);
-    Serial.print(" POT 1 --> ");
-    Serial.print(sensorValue1);
-    Serial.println();
-  */
 
 
-  // ------------------------------------------------------
-  // PORT 0
+  if (Serial.available() > 0) {
+    // read the oldest byte in the serial buffer:
+    incomingByte = Serial.read();
+    // if it's a capital H (ASCII 72), turn on the LED:
+    if (incomingByte == 'q') {
+      //    motorYLeft();
+      motorXLeft();
 
-  while (sensorValue0 < step2  ) {
-    Serial.print(" SPOT 0 ");
+    }
+    // if it's an L (ASCII 76) turn off the LED:
+    if (incomingByte == 'w') {
+      //  motorYRight();
+      motorXRight();
+
+      //  delay(dur); // delay for 1 second
+    }
+
+    if (incomingByte == 'a') {
+      //    motorYLeft();
+      motorYLeft();
+
+    }
+    // if it's an L (ASCII 76) turn off the LED:
+    if (incomingByte == 's') {
+      //  motorYRight();
+      motorYRight();
+
+      //  delay(dur); // delay for 1 second
+    }
+    if (incomingByte == 'e') {
+      //  motorYStop();
+      motorYStop();
+    }
+
+    if (incomingByte == 'r') {
+      //  motorYStop();
+     // motorYSwicth(ledState1);
+    }
 
 
-    // read and update the switch's behaviour
-    readSwitch();
+    if (incomingByte == 'O') {
+      on();
+    }
 
-    // stop motor X
-    motorXStop();
+    if (incomingByte == 'I') {
 
-    // update Pot value
-    sensorValue0 = analogRead(analogInPin0);
+      onoff(15);
 
-    // turn off the LEDs
-    analogWrite(led2, 0);
+    }
 
+    if (incomingByte == 'U') {
 
-    // stop motor Y
-    motorYStop();
+      off();
 
-    // update Pot value
-    sensorValue1 = analogRead(analogInPin1);
+    }
 
-    // turn off the LEDs
-    analogWrite(led1, 0);
+    if (incomingByte == 'T') {
 
+      on();
 
-  }
+    }
 
-
-  while (sensorValue0 >= step2) {
-    Serial.print(" MOV 0");
-    readSwitch();
-
-    sensorValue0 = analogRead(analogInPin0);
-    int light0 = map(sensorValue0, step2, 1023, 0 , 255);
-    analogWrite(led2, light0);
-
-    sensorValue1 = analogRead(analogInPin1);
-
-    //int dur = 200; // the higher, the longer
-
-    temp = 800; // the higher, the slower 2400, 3600, 4200
-
-    sensorValue1 = analogRead(analogInPin1);
-
-    int light1 = map(sensorValue1, step2, 1023, 0 , 255);
-    analogWrite(led1, light1);
-
-    // control both motors
-    motorMixSwitch(ledState0, ledState1);
 
 
   }
 
-  
-  // trying to implement a serial control over the device. 
+
+  // trying to implement a serial control over the device.
   // this hasn't been updated to the motorMixSwitch function
-  
+
   Serial.println();
   //delay(2);
 
