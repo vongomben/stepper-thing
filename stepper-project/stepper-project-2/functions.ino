@@ -107,7 +107,6 @@ void motorMixSwitch(int ledState0, int ledState1) {
 
   }
 
-
   for (int x = 0; x < dur; x++) { // loop for 200 steps
     digitalWrite(StepY, HIGH);
     digitalWrite(StepX, HIGH);
@@ -142,15 +141,15 @@ void readSwitch() {
   switchValue03 = digitalRead(sw3);
  // switchValue04 = digitalRead(sw4);
 
- /* Serial.print(" sw1 = ");
-  Serial.print(switchValue01);
-  Serial.print(" sw2 = ");
-  Serial.print(switchValue02);
-  Serial.print(" sw3 = ");
-  Serial.print(switchValue03);
-  Serial.print(" sw4 = ");
-  Serial.print(switchValue04);
-*/
+ // Serial.print(" sw1 = ");
+ // Serial.print(switchValue01);
+ // Serial.print(" sw2 = ");
+ // Serial.print(switchValue02);
+ // Serial.print(" sw3 = ");
+ // Serial.print(switchValue03);
+ // Serial.print(" sw4 = ");
+//  Serial.print(switchValue04);
+
   // If the switch changed, due to noise or pressing:
   if (switchValue03 != lastButtonState0) {
     // reset the debouncing timer
@@ -166,7 +165,7 @@ void readSwitch() {
       buttonState0 = switchValue03;
 
       // only toggle the LED if the new button state is HIGH
-      if (buttonState0 == HIGH) {
+      if (buttonState0 == LOW) {
         ledState0 = !ledState0;
       }
     }
@@ -196,7 +195,7 @@ void readSwitch() {
       buttonState1 = switchValue02;
 
       // only toggle the LED if the new button state is HIGH
-      if (buttonState1 == HIGH) {
+      if (buttonState1 == LOW) {
         ledState1 = !ledState1;
       }
     }

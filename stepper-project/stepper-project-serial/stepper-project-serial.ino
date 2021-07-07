@@ -55,8 +55,8 @@ int incomingByte;      // a variable to read incoming serial data into
 //int pulseWidthMicros = 20;  // microseconds
 //int millisbetweenSteps = 250; // milliseconds - or try 1000 for slower steps
 int state = 1;
-int temp = 800; // the higher, the slower
-int dur = 20; // the higher, the longer
+int temp = 800; // the higher, the slower 800
+int dur = 200; // the higher, the longer20
 //int t = 2000;
 
 int light = 255;
