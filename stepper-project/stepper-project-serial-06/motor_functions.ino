@@ -4,18 +4,6 @@
 // ALL MOTORS
 
 
-void enableON(){
-  
-    digitalWrite(ENABLE, HIGH);
-
-  }
-
-void enableOFF(){
-  
-    digitalWrite(ENABLE, LOW);
-
-  }
-
 
 
 

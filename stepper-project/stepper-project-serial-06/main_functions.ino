@@ -2,6 +2,7 @@
 
 void motorMixSwitch(int ledState0, int ledState1, int ledState2, int ledState3, int temp) {
 
+ enableON();
 //  readSwitch();
 
 

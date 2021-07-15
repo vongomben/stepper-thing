@@ -1,7 +1,7 @@
 void SerialControl(){
   
     if (Serial.available() > 0) {
-
+ enableON();
     //motorStop();
     
     // read the oldest byte in the serial buffer:
@@ -9,15 +9,17 @@ void SerialControl(){
 
 
 
- if (incomingByte == 'l') {
+ if (incomingByte == 'P') {
 
       enableON();
+      Serial.println("enableON");
 
     }
 
-     if (incomingByte == 'p') {
+     if (incomingByte == 'L') {
 
       enableOFF();
+      Serial.println("enableOFF");
 
     }
 

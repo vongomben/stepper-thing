@@ -52,7 +52,7 @@ const int DirZ = 36;
 const int StepA = 48;
 const int DirA = 38;
 
-const int ENABLE = 14;
+const int ENABLE = 15;
 
 int Dir = 0;
 /*const int StepY = 3;
@@ -106,6 +106,27 @@ unsigned long lastDebounceTime3 = 0;  // the last time the output pin was toggle
 unsigned long debounceDelay3 = 50;    // the debounce time; increase if the output flickers
 
 
+void potRead() {
+
+  sensorValue0 = analogRead(analogInPin0);
+  sensorValue1 = analogRead(analogInPin1);
+
+}
+
+
+void enableON() {
+
+  digitalWrite(ENABLE, HIGH);
+
+}
+
+void enableOFF() {
+
+  digitalWrite(ENABLE, LOW);
+
+}
+
+
 
 
 void setup() {
@@ -120,7 +141,7 @@ void setup() {
   pinMode(led3, OUTPUT);
 
   pinMode(ENABLE, OUTPUT);
-
+  enableON();
   //  pinMode(sw1, INPUT_PULLUP);
   pinMode(sw1, INPUT_PULLUP);
   pinMode(sw2, INPUT_PULLUP);
@@ -154,11 +175,6 @@ void setup() {
 void loop() {
 
   potRead();
-
-
-
-
-
   readSwitch();
 
   //  motorMixSwitch(ledState0, ledState1, ledState2, ledState3);
@@ -178,20 +194,19 @@ void loop() {
   }
 
   while ((sensorValue0 >= step1) && (sensorValue0 < step2  )) {
-    //Serial.println(" 2 ");
+
+     Serial.println(" 2 ");
     //Serial.println(sensorValue0);
 
     potRead();
     readSwitch();
-    motorMixSwitch(ledState0, ledState1, ledState2, ledState3, 4800);
-
-
+    //motorMixSwitch(ledState0, ledState1, ledState2, ledState3, 4800);
+    SerialControl();
   }
-
   while ((sensorValue0 >= step2) && (sensorValue0 < step3)) {
     //Serial.println(" 3 ");
     //Serial.println(sensorValue0);
-
+    enableON();
     potRead();
     readSwitch();
     motorMixSwitch(ledState0, ledState1, ledState2, ledState3, 2400);
@@ -201,7 +216,6 @@ void loop() {
   while (sensorValue0 >= step3) {
     // Serial.println(" 4 ");
     //Serial.println(sensorValue0);
-
     potRead();
     readSwitch();
     motorMixSwitch(ledState0, ledState1, ledState2, ledState3, 1600);
