@@ -52,6 +52,8 @@ const int DirZ = 36;
 const int StepA = 48;
 const int DirA = 38;
 
+const int ENABLE = 14;
+
 int Dir = 0;
 /*const int StepY = 3;
   const int DirY = 6;
@@ -116,6 +118,8 @@ void setup() {
   pinMode(led1, OUTPUT);
   pinMode(led2, OUTPUT);
   pinMode(led3, OUTPUT);
+
+  pinMode(ENABLE, OUTPUT);
 
   //  pinMode(sw1, INPUT_PULLUP);
   pinMode(sw1, INPUT_PULLUP);
@@ -187,7 +191,7 @@ void loop() {
   while ((sensorValue0 >= step2) && (sensorValue0 < step3)) {
     //Serial.println(" 3 ");
     //Serial.println(sensorValue0);
-    
+
     potRead();
     readSwitch();
     motorMixSwitch(ledState0, ledState1, ledState2, ledState3, 2400);
@@ -195,7 +199,7 @@ void loop() {
   }
 
   while (sensorValue0 >= step3) {
-   // Serial.println(" 4 ");
+    // Serial.println(" 4 ");
     //Serial.println(sensorValue0);
 
     potRead();
